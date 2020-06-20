@@ -23,7 +23,6 @@ public class Main extends JavaPlugin {
 
 	HashMap<String, GameMode> string_to_gm = new HashMap<>();
 
-	
 	public void onEnable() {
 		System.out.println("BaeHyeonWoo PL.\n===============\nv1.4");
 		Bukkit.getPluginManager().registerEvents(new Event(), this);
