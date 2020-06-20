@@ -51,6 +51,7 @@ public class Main extends JavaPlugin {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("stop")) {
+			
 			if (p.isOp()) {
 				Bukkit.shutdown();
 			} else {
