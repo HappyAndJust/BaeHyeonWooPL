@@ -1,5 +1,6 @@
 package library;
 
+import java.util.HashMap;
 import java.util.Iterator;
 
 import org.bukkit.Bukkit;
@@ -19,6 +20,9 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 public class Main extends JavaPlugin {
+
+	HashMap<String, GameMode> string_to_gm = new HashMap<>();
+
 	public void onEnable() {
 		System.out.println("BaeHyeonWoo PL.\n===============\nv1.4");
 		Bukkit.getPluginManager().registerEvents(new Event(), this);
@@ -29,6 +33,12 @@ public class Main extends JavaPlugin {
 	}
 
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+
+		string_to_gm.put("Survival", GameMode.SURVIVAL);
+		string_to_gm.put("Creative", GameMode.CREATIVE);
+		string_to_gm.put("Adventure", GameMode.ADVENTURE);
+		string_to_gm.put("Spectator", GameMode.SPECTATOR);
+
 		Player p = (Player) sender;
 		if (cmd.getName().equalsIgnoreCase("activestatus")) {
 			p.sendMessage(ChatColor.GREEN + "BHW Plugin is Enabled.");
@@ -208,11 +218,10 @@ public class Main extends JavaPlugin {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("heal")) {
-			if(p.isOp()) {
-			p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
-			p.sendMessage(ChatColor.GREEN + "Healed.\n체력이 채워졌습니다.");
-		}
-			else {
+			if (p.isOp()) {
+				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
+				p.sendMessage(ChatColor.GREEN + "Healed.\n체력이 채워졌습니다.");
+			} else {
 				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
 			}
 		}
@@ -238,7 +247,7 @@ public class Main extends JavaPlugin {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("deactspace")) {
-			if(p.hasPotionEffect(PotionEffectType.JUMP)) {
+			if (p.hasPotionEffect(PotionEffectType.JUMP)) {
 				p.removePotionEffect(PotionEffectType.JUMP);
 				p.removePotionEffect(PotionEffectType.LEVITATION);
 				p.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -248,17 +257,16 @@ public class Main extends JavaPlugin {
 
 				while (var7.hasNext()) {
 					w = (World) var7.next();
-					w.setTime(1000L);	
+					w.setTime(1000L);
+				}
 			}
-		}
 			p.sendMessage(ChatColor.LIGHT_PURPLE + "Spacemode is deactivated.");
 		}
 
 		if (cmd.getName().equalsIgnoreCase("giveop")) {
-			if(p.isOp()) {
-			p.sendMessage(ChatColor.RED + "You are already an operator.\n 당신은 이미 관리자입니다.");
-			}
-			else {
+			if (p.isOp()) {
+				p.sendMessage(ChatColor.RED + "You are already an operator.\n 당신은 이미 관리자입니다.");
+			} else {
 				p.setOp(true);
 				p.sendMessage(ChatColor.GREEN + "You are now an operator.\n당신은 이제 관리자입니다.");
 			}
@@ -269,29 +277,23 @@ public class Main extends JavaPlugin {
 
 				if (args.length == 0) {
 					sender.sendMessage(ChatColor.RED
-							+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n" + ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
-
-				} else if (args.length == 1) {
-					GameMode gm = null;
-					if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
-						gm = GameMode.SURVIVAL;
-						p.sendMessage("Set your own gamemode to Survival Mode.");
-					}
-					else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
-						gm = GameMode.CREATIVE;
-						p.sendMessage("Set your own gamemode to Creative Mode.");
-
-					} else if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
-						gm = GameMode.ADVENTURE;
-						p.sendMessage("Set your own gamemode to Adventure Mode.");
-
-					} else if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
-						gm = GameMode.SPECTATOR;
-						p.sendMessage("Set your own gamemode to Spectator Mode.");
-
+							+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n"
+							+ ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
+					return true;
+				}
+				String str = args[0];
+				str = str.equals("0") ? "Survival" : str;
+				str = str.equals("1") ? "Creative" : str;
+				str = str.equals("2") ? "Adventure" : str;
+				str = str.equals("3") ? "Spectator" : str;
+				GameMode gm = string_to_gm.get(str);
+				if (args.length == 1) {
+					if (gm != null) {
+						p.sendMessage("Set your own gamemode to " + str + " Mode.");
 					} else {
 						sender.sendMessage(ChatColor.RED
-								+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n" + ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
+								+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n"
+								+ ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
 						return false;
 					}
 					p.setGameMode(gm);
@@ -299,47 +301,14 @@ public class Main extends JavaPlugin {
 				} else if (args.length == 2) {
 					Player target = Bukkit.getPlayer(args[1]);
 					if (target != null) {
-						GameMode gm = null;
-						if (args[0].equalsIgnoreCase("0") || args[0].equalsIgnoreCase("survival")) {
-							gm = GameMode.SURVIVAL;
-							p.sendMessage("Set " + target.getName() + "'s gamemode to Survival Mode.");
-							target.sendMessage("You gamemode has been updated to Survival Mode by " + p.getName() + ".");
-							}
-						else if(p == target) {
-							gm = GameMode.SURVIVAL;
-							p.sendMessage("Set your own gamemode to Survival Mode.");
-						}
-						else if (args[0].equalsIgnoreCase("1") || args[0].equalsIgnoreCase("creative")) {
-							gm = GameMode.CREATIVE;
-							p.sendMessage("Set " + target.getName() + "'s gamemode to Creative Mode.");
-							target.sendMessage("You gamemode has been updated to Creative Mode by " + p.getName() + ".");
-						}
-						else if(p == target) {
-							gm = GameMode.CREATIVE;
-							p.sendMessage("Set your own gamemode to Creative Mode.");
-						} else if (args[0].equalsIgnoreCase("2") || args[0].equalsIgnoreCase("adventure")) {
-							gm = GameMode.ADVENTURE;
-							p.sendMessage("Set " + target.getName() + "'s gamemode to Adventure Mode.");
+						if (gm != null) {
+							p.sendMessage("Set " + target.getName() + "'s gamemode to " + str + " Mode.");
 							target.sendMessage(
-									"You gamemode has been updated to Adventure Mode by " + p.getName() + ".");
-						}
-						else if(p == target) {
-							gm = GameMode.ADVENTURE;
-							p.sendMessage("Set your own gamemode to Adventure Mode.");
-
-						} else if (args[0].equalsIgnoreCase("3") || args[0].equalsIgnoreCase("spectator")) {
-							gm = GameMode.SPECTATOR;
-							p.sendMessage("Set " + target.getName() + "'s gamemode to Spectator Mode.");
-							target.sendMessage(
-									"You gamemode has been updated to Specatator Mode by " + p.getName() + ".");
-						}
-						else if(p == target) {
-							gm = GameMode.SPECTATOR;
-							p.sendMessage("Set your own gamemode to Spectator Mode.");
-
+									"You gamemode has been updated to " + str + " Mode by " + p.getName() + ".");
 						} else {
 							sender.sendMessage(ChatColor.RED
-									+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n" + ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
+									+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n"
+									+ ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
 							return false;
 						}
 						target.setGameMode(gm);
@@ -349,15 +318,18 @@ public class Main extends JavaPlugin {
 					}
 				} else {
 					sender.sendMessage(ChatColor.RED
-							+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n" + ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
+							+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n"
+							+ ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
 				}
-			} else { // sender is not op
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
 			}
+		} else { // sender is not op
+			sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+
 			return true;
 		}
+		if (cmd.getName().equalsIgnoreCase("difficulty"))
 
-		if (cmd.getName().equalsIgnoreCase("difficulty")) {
+		{
 			if (p.isOp()) {
 				if (args.length == 0) {
 					p.sendMessage(ChatColor.RED
