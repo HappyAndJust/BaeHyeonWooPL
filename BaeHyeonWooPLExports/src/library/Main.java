@@ -15,6 +15,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -51,7 +52,7 @@ public class Main extends JavaPlugin {
 		}
 
 		if (cmd.getName().equalsIgnoreCase("stop")) {
-			
+
 			if (p.isOp()) {
 				Bukkit.shutdown();
 			} else {
@@ -65,15 +66,15 @@ public class Main extends JavaPlugin {
 				p.getInventory().clear();
 				p.sendMessage(ChatColor.GREEN + "Cleared your Inventory.\n인벤토리가 비워졌습니다.");
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
 		if (cmd.getName().equalsIgnoreCase("compass")) {
 			if (p.isOp()) {
-				p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.COMPASS, 1) });
+				p.getInventory().addItem(new ItemStack[]{new ItemStack(Material.COMPASS, 1)});
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -87,9 +88,9 @@ public class Main extends JavaPlugin {
 				p.getInventory().setChestplate(new ItemStack(Material.DIAMOND_CHESTPLATE));
 				p.getInventory().setBoots(new ItemStack(Material.DIAMOND_BOOTS));
 				p.getInventory().setLeggings(new ItemStack(Material.DIAMOND_LEGGINGS));
-				p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.DIAMOND_SWORD, 1) });
+				p.getInventory().addItem(new ItemStack[]{new ItemStack(Material.DIAMOND_SWORD, 1)});
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -99,9 +100,9 @@ public class Main extends JavaPlugin {
 				p.getInventory().setChestplate(new ItemStack(Material.GOLDEN_CHESTPLATE));
 				p.getInventory().setBoots(new ItemStack(Material.GOLDEN_BOOTS));
 				p.getInventory().setLeggings(new ItemStack(Material.GOLDEN_LEGGINGS));
-				p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.GOLDEN_SWORD, 1) });
+				p.getInventory().addItem(new ItemStack[]{new ItemStack(Material.GOLDEN_SWORD, 1)});
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -111,9 +112,9 @@ public class Main extends JavaPlugin {
 				p.getInventory().setChestplate(new ItemStack(Material.IRON_CHESTPLATE));
 				p.getInventory().setBoots(new ItemStack(Material.IRON_BOOTS));
 				p.getInventory().setLeggings(new ItemStack(Material.IRON_LEGGINGS));
-				p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.IRON_SWORD, 1) });
+				p.getInventory().addItem(new ItemStack[]{new ItemStack(Material.IRON_SWORD, 1)});
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -123,9 +124,9 @@ public class Main extends JavaPlugin {
 				p.getInventory().setChestplate(new ItemStack(Material.LEATHER_CHESTPLATE));
 				p.getInventory().setBoots(new ItemStack(Material.LEATHER_BOOTS));
 				p.getInventory().setLeggings(new ItemStack(Material.LEATHER_LEGGINGS));
-				p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.WOODEN_SWORD, 1) });
+				p.getInventory().addItem(new ItemStack[]{new ItemStack(Material.WOODEN_SWORD, 1)});
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -135,9 +136,9 @@ public class Main extends JavaPlugin {
 				p.getInventory().setChestplate(new ItemStack(Material.CHAINMAIL_CHESTPLATE));
 				p.getInventory().setBoots(new ItemStack(Material.CHAINMAIL_BOOTS));
 				p.getInventory().setLeggings(new ItemStack(Material.CHAINMAIL_LEGGINGS));
-				p.getInventory().addItem(new ItemStack[] { new ItemStack(Material.STONE_SWORD, 1) });
+				p.getInventory().addItem(new ItemStack[]{new ItemStack(Material.STONE_SWORD, 1)});
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -160,7 +161,7 @@ public class Main extends JavaPlugin {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 255, true));
 				p.playSound(p.getLocation(), Sound.ENTITY_WITHER_SPAWN, 100.0F, 0.0F);
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -168,7 +169,7 @@ public class Main extends JavaPlugin {
 			if (p.isOp()) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 255));
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -176,7 +177,7 @@ public class Main extends JavaPlugin {
 			if (p.isOp()) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, 1000000, 255));
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -197,7 +198,7 @@ public class Main extends JavaPlugin {
 				p.removePotionEffect(PotionEffectType.NIGHT_VISION);
 				p.stopSound(Sound.ENTITY_WITHER_SPAWN);
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -214,7 +215,7 @@ public class Main extends JavaPlugin {
 				p.setFoodLevel(20);
 				p.sendMessage(ChatColor.GREEN + "Feeded.\n 배고픔이 채워졌습니다.");
 			} else {
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -223,7 +224,7 @@ public class Main extends JavaPlugin {
 				p.setHealth(p.getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue());
 				p.sendMessage(ChatColor.GREEN + "Healed.\n체력이 채워졌습니다.");
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 		World w;
@@ -243,7 +244,7 @@ public class Main extends JavaPlugin {
 				}
 				p.sendMessage(ChatColor.LIGHT_PURPLE + "Houston, we have a problem.\nSpacemode is activated.");
 			} else { // Sender is not op
-				sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 
@@ -319,18 +320,16 @@ public class Main extends JavaPlugin {
 					}
 				} else {
 					sender.sendMessage(ChatColor.RED
-							+ "Missing Arguements! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n"
+							+ "Missing Arguments! Command Usage :\n/gm 0\n/gm 1\n/gm 2\n/gm 3\nor\n/gm <0,1,2,3> [Player Name]\n"
 							+ ChatColor.GREEN + "Or you can change /gm to /gamemode as your convenience. :D");
 				}
 			}
 		} else { // sender is not op
-			sender.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+			sender.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 
 			return true;
 		}
-		if (cmd.getName().equalsIgnoreCase("difficulty"))
-
-		{
+		if (cmd.getName().equalsIgnoreCase("difficulty")) {
 			if (p.isOp()) {
 				if (args.length == 0) {
 					p.sendMessage(ChatColor.RED
@@ -355,10 +354,39 @@ public class Main extends JavaPlugin {
 					}
 				}
 			} else {
-				p.sendMessage(ChatColor.RED + "No Administrative Previllages Founded.\n관리자 권한이 없습니다.");
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
+			}
+		}
+
+		if (cmd.getName().equalsIgnoreCase("skull")) {
+			if (p.isOp()) {
+				if (args.length == 0) {
+					p.sendMessage(ChatColor.GREEN + "You have given the skull of " + ChatColor.RED + p.getName());
+					p.getInventory().addItem(getPlayerHead(p.getName()));
+				} else if (args.length == 1) {
+					p.sendMessage(ChatColor.RED + "You have given the skull of " + ChatColor.RED + args[0]);
+					p.getInventory().addItem(getPlayerHead(args[0]));
+				} else {
+					p.sendMessage(ChatColor.RED + "Missing Arguments! Command Usage:\n/skull\nor\n/skull [Player Name]");
+				}
+			} else {
+				p.sendMessage(ChatColor.RED + "No Administrative Privileges Founded.\n관리자 권한이 없습니다.");
 			}
 		}
 		return false;
 
+	}
+
+	@SuppressWarnings("deprecation")
+	public ItemStack getPlayerHead(String p) {
+		Material type = Material.matchMaterial("PLAYER_HEAD");
+		ItemStack item = new ItemStack(type, 1);
+
+		SkullMeta meta = (SkullMeta) item.getItemMeta();
+		meta.setOwner(p);
+
+		item.setItemMeta(meta);
+
+		return item;
 	}
 }
